@@ -18,6 +18,7 @@ WORKDIR $APP_PATH
 
 RUN pip install --no-cache-dir -r requirements.txt
 
+RUN pip install --no-cache-dir apache-airflow[postgres] --constraint https://raw.githubusercontent.com/apache/airflow/constraints-2.2.5/constraints-3.8.txt
 RUN airflow db init
 RUN airflow scheduler -D
 CMD airflow webserver --port 8080

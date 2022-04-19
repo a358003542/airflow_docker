@@ -1,7 +1,31 @@
 version: "3"
 
 services:
-  pycode:
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: airflow
+      POSTGRES_DB: airflow
+    volumes:
+      - postgres-db-volume:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "airflow"]
+      interval: 5s
+      retries: 5
+    restart: always
+  redis:
+    image: redis:latest
+    expose:
+      - 6379
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 30s
+      retries: 50
+    restart: always
+
+  airflow-web:
     build:
       context: .
       args:
@@ -14,3 +38,5 @@ services:
       - ./data:/home/${uname}/data
       - ./pycode:/home/${uname}/pycode
     user: ${uid}:${gid}
+    ports:
+      - 8080:8080

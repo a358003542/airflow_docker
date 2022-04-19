@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+  pycode:
+    build:
+      context: .
+      args:
+        - uname=${uname}
+        - uid=${uid}
+        - gid=${gid}
+    env_file:
+      - ./pycode/python.env
+    volumes:
+      - ./data:/home/${uname}/data
+      - ./pycode:/home/${uname}/pycode
+    user: ${uid}:${gid}

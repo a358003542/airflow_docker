@@ -18,8 +18,9 @@ WORKDIR $APP_PATH
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-RUN airflow initdb
-CMD airflow webserver -p 8080
+RUN airflow db init
+RUN airflow scheduler -D
+CMD airflow webserver --port 8080
 
 VOLUME $DATA_PATH
 

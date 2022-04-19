@@ -40,3 +40,6 @@ services:
     user: ${uid}:${gid}
     ports:
       - 8080:8080
+
+volumes:
+  postgres-db-volume:

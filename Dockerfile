@@ -18,7 +18,7 @@ WORKDIR $APP_PATH
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-RUN pip install --no-cache-dir apache-airflow[postgres] -i https://repo.huaweicloud.com/repository/pypi/simple  --constraint constraints-3.8.txt
+RUN pip install --no-cache-dir apache-airflow[postgres] -i https://pypi.tuna.tsinghua.edu.cn/simple   --constraint constraints-3.8.txt
 
 CMD airflow standalone
 
